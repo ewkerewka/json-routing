@@ -1,59 +1,74 @@
 {
-  "Name": "RoscomVPN",
-  "GlobalProxy": "true",
-  "UseChunkFiles": "true",
-  "RemoteDns": "8.8.8.8",
-  "DomesticDns": "77.88.8.8",
-  "RemoteDNSType": "DoH",
-  "RemoteDNSDomain": "https://8.8.8.8/dns-query",
-  "RemoteDNSIP": "8.8.8.8",
-  "DomesticDNSType": "DoH",
-  "DomesticDNSDomain": "https://77.88.8.8/dns-query",
-  "DomesticDNSIP": "77.88.8.8",
-  "Geoipurl": "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geoip/release/geoip.dat",
-  "Geositeurl": "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/geosite.dat",
-  "LastUpdated": "1793004582",
-  "DnsHosts": {
-    "lkfl2.nalog.ru": "213.24.64.175",
-    "lknpd.nalog.ru": "213.24.64.181"
+  "log": {
+    "loglevel": "warning"
   },
-  "RouteOrder": "block-proxy-direct",
-  "DirectSites": [
-    "geosite:private",
-    "geosite:category-ru",
-    "geosite:whitelist",
-    "geosite:microsoft",
-    "geosite:apple",
-    "geosite:epicgames",
-    "geosite:riot",
-    "geosite:escapefromtarkov",
-    "geosite:steam",
-    "geosite:twitch",
-    "geosite:pinterest",
-    "geosite:faceit",
-    "regexp:.*\\.ru$",
-    "regexp:.*\\.su$",
-    "regexp:.*\\.рф$"
-  ],
-  "DirectIp": [
-    "geoip:private",
-    "geoip:direct",
-    "geoip:ru"
-  ],
-  "ProxySites": [
-    "geosite:google-play",
-    "geosite:github",
-    "geosite:twitch-ads",
-    "geosite:youtube",
-    "geosite:telegram"
-  ],
-  "ProxyIp": [],
-  "BlockSites": [
-    "geosite:win-spy",
-    "geosite:torrent",
-    "geosite:category-ads"
-  ],
-  "BlockIp": [],
-  "DomainStrategy": "IPIfNonMatch",
-  "FakeDNS": "false"
+  "dns": {
+    "servers": [
+      {
+        "address": "https://77.88.8.8/dns-query",
+        "domains": [
+          "geosite:private",
+          "geosite:category-ru",
+          "geosite:microsoft",
+          "geosite:apple",
+          "regexp:.*\\.ru$",
+          "regexp:.*\\.su$",
+          "regexp:.*\\.рф$"
+        ]
+      },
+      "8.8.8.8"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "geosite:win-spy",
+          "geosite:torrent",
+          "geosite:category-ads"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:google-play",
+          "geosite:github",
+          "geosite:youtube",
+          "geosite:telegram"
+        ],
+        "outboundTag": "proxy"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:private",
+          "geosite:category-ru",
+          "geosite:microsoft",
+          "geosite:apple",
+          "geosite:steam",
+          "regexp:.*\\.ru$",
+          "regexp:.*\\.su$",
+          "regexp:.*\\.рф$"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private",
+          "geoip:direct",
+          "geoip:ru"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "network": "tcp,udp",
+        "outboundTag": "proxy"
+      }
+    ]
+  }
 }
