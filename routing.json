@@ -1,0 +1,60 @@
+{
+  "domainStrategy": "IPIfNonMatch",
+  "rules": [
+    {
+      "domain": [
+        "geosite:win-spy",
+        "geosite:torrent",
+        "geosite:category-ads"
+      ],
+      "outboundTag": "block",
+      "type": "field"
+    },
+    {
+      "domain": [
+        "geosite:google-play",
+        "geosite:github",
+        "geosite:twitch-ads",
+        "geosite:youtube",
+        "geosite:telegram"
+      ],
+      "outboundTag": "proxy",
+      "type": "field"
+    },
+    {
+      "domain": [
+        "geosite:private",
+        "geosite:category-ru",
+        "geosite:whitelist",
+        "geosite:microsoft",
+        "geosite:apple",
+        "geosite:epicgames",
+        "geosite:riot",
+        "geosite:escapefromtarkov",
+        "geosite:steam",
+        "geosite:twitch",
+        "geosite:pinterest",
+        "geosite:faceit",
+        "regexp:.*\\.ru$",
+        "regexp:.*\\.su$",
+        "regexp:.*\\.рф$"
+      ],
+      "outboundTag": "direct",
+      "type": "field"
+    },
+    {
+      "ip": [
+        "geoip:private",
+        "geoip:direct",
+        "geoip:ru"
+      ],
+      "outboundTag": "direct",
+      "type": "field"
+    },
+    {
+      "network": "tcp,udp",
+      "outboundTag": "proxy",
+      "type": "field"
+    }
+  ]
+}
