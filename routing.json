@@ -1,74 +1,20 @@
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "dns": {
-    "servers": [
-      {
-        "address": "https://77.88.8.8/dns-query",
-        "domains": [
-          "geosite:private",
-          "geosite:category-ru",
-          "geosite:microsoft",
-          "geosite:apple",
-          "regexp:.*\\.ru$",
-          "regexp:.*\\.su$",
-          "regexp:.*\\.рф$"
-        ]
-      },
-      "8.8.8.8"
-    ]
-  },
-  "routing": {
-    "domainStrategy": "IPIfNonMatch",
-    "rules": [
-      {
-        "type": "field",
-        "domain": [
-          "geosite:win-spy",
-          "geosite:torrent",
-          "geosite:category-ads"
-        ],
-        "outboundTag": "block"
-      },
-      {
-        "type": "field",
-        "domain": [
-          "geosite:google-play",
-          "geosite:github",
-          "geosite:youtube",
-          "geosite:telegram"
-        ],
-        "outboundTag": "proxy"
-      },
-      {
-        "type": "field",
-        "domain": [
-          "geosite:private",
-          "geosite:category-ru",
-          "geosite:microsoft",
-          "geosite:apple",
-          "geosite:steam",
-          "regexp:.*\\.ru$",
-          "regexp:.*\\.su$",
-          "regexp:.*\\.рф$"
-        ],
-        "outboundTag": "direct"
-      },
-      {
-        "type": "field",
-        "ip": [
-          "geoip:private",
-          "geoip:direct",
-          "geoip:ru"
-        ],
-        "outboundTag": "direct"
-      },
-      {
-        "type": "field",
-        "network": "tcp,udp",
-        "outboundTag": "proxy"
-      }
-    ]
-  }
+  "domainStrategy": "IPIfNonMatch",
+  "rules": [
+    {
+      "type": "field",
+      "domain": [
+        "geosite:category-ru",
+        "regexp:.*\\.ru$",
+        "regexp:.*\\.su$",
+        "regexp:.*\\.рф$"
+      ],
+      "outboundTag": "direct"
+    },
+    {
+      "type": "field",
+      "network": "tcp,udp",
+      "outboundTag": "proxy"
+    }
+  ]
 }
