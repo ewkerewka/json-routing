@@ -1,0 +1,20 @@
+{
+  "domainStrategy": "IPIfNonMatch",
+  "rules": [
+    {
+      "type": "field",
+      "domain": [
+        "geosite:category-ru",
+        "regexp:.*\\.ru$",
+        "regexp:.*\\.su$",
+        "regexp:.*\\.рф$"
+      ],
+      "outboundTag": "direct"
+    },
+    {
+      "type": "field",
+      "network": "tcp,udp",
+      "outboundTag": "proxy"
+    }
+  ]
+}
